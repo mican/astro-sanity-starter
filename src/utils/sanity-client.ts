@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 export const sanityConfig: ClientConfig = {
     projectId: SANITY_PROJECT_ID,
     dataset: SANITY_DATASET || 'production',
-    useCdn: false,
+    useCdn: true,
     apiVersion: '2024-01-31',
     token: SANITY_TOKEN,
     perspective: isDev || isDeployPreview || previewDrafts ? 'previewDrafts' : 'published'
@@ -34,7 +34,7 @@ export const client = createClient(sanityConfig);
         if (event.transition === 'appear' || event.transition === 'disappear') {
             const filePath = path.join(__dirname, '../layouts/Layout.astro');
             const time = new Date();
-            
+
             // update the updatedat stamp for the layout file, triggering astro to refresh the data in getStaticPaths
             await fs.promises.utimes(filePath, time, time);
         }
